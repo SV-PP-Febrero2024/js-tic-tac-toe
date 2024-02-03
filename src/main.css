@@ -41,7 +41,7 @@ main {
   background-repeat: no-repeat;
   background-size: 100%;
 }
-.turn-cell-o {
+.turn-o {
   width: 150px;
   height: 150px;
   background-image: url('./img/circle.png');
@@ -49,7 +49,7 @@ main {
   background-repeat: no-repeat;
   background-size: 100%;
 }
-.turn-cell-x {
+.turn-x {
   width: 150px;
   height: 150px;
   background-image: url('./img/cross.png');
