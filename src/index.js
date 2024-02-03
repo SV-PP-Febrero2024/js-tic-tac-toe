@@ -3,14 +3,65 @@ let endGame = false
 window.onload = () => {
     console.log('loaded')
     let cells = document.getElementsByClassName('cell')
+    
+
+
+
+
     let turnX = false
+
+    //Print
+    let count = 0
+    let box
+    let turn
+
+
      for (const cell of cells) {
 
             cell.onclick = (event) => {
 
                 if (!finish() && !endGame){
+                    let movementsDom = document.getElementById('movements')
                     const [, x, y] = event.target.id.split('-') 
+                    count ++
+                    console.log(movementsDom)
+
                     //console.log(`click on ${x}:${y}`)
+
+              
+
+                    box = (`${x}-${y}`)
+
+                    turn = ''
+                    if (turnX == true){
+                        turn = 'X'
+                    }else {
+                        turn = 'O'
+                    }
+
+
+                    const move = document.createElement('tr')
+
+                    const order = document.createElement('td')
+                    order.innerText = count
+                    move.appendChild(order)
+
+                    const position = document.createElement('td')
+                    position.innerText = box
+                    move.appendChild(position)
+
+                    const player = document.createElement('td')
+                    player.innerText = turn
+                    move.appendChild(player)
+
+                    //mete todo al div
+                    console.log(player)
+
+                    movementsDom.appendChild(move)
+
+
+
+
             
                     if (cell.className === 'cell' && turnX == false){
                         cell.className = 'cell-o'
