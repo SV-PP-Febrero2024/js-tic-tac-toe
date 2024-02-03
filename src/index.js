@@ -2,18 +2,16 @@ let endGame = false
 
 window.onload = () => {
     console.log('loaded')
-
-    // let cells = <GET ALL cell ELEMENTS> - ya está
     let cells = document.getElementsByClassName('cell')
     let turnX = false
      for (const cell of cells) {
 
             cell.onclick = (event) => {
-            
+
                 if (!finish() && !endGame){
-                    const [, x, y] = event.target.id.split('-')
+                    const [, x, y] = event.target.id.split('-') 
                     //console.log(`click on ${x}:${y}`)
-    
+            
                     if (cell.className === 'cell' && turnX == false){
                         cell.className = 'cell-o'
                         youWin(turnX)
@@ -32,7 +30,6 @@ window.onload = () => {
                     alert("SE ACABO")
                 }
             }
-        
     }
 }
 
@@ -68,6 +65,27 @@ function checkDiagonaleOne(turnX){
         }
      }
      if (diagonalOneCompleted == true){
+        return true
+    }
+    return false
+}
+
+function checkDiagonalTwo(turnX){
+    let diagonalTwoCompleted = false
+     let currentTurn = ''
+     if (turnX == true){
+         currentTurn = 'cell-x'
+     }else {
+         currentTurn = 'cell-o'
+     }
+     let a = document.getElementById(`cell-${0}-${2}`)
+     let b = document.getElementById(`cell-${1}-${1}`)
+     let c = document.getElementById(`cell-${2}-${0}`)
+   
+     if (a.className == currentTurn &&  b.className == currentTurn && c.className == currentTurn){
+        diagonalTwoCompleted = true
+    }
+     if (diagonalTwoCompleted == true){
         return true
     }
     return false
@@ -151,6 +169,13 @@ function youWin(turnX){
     return true
    }
    result = checkDiagonaleOne(turnX)
+   if (result && !endGame) {
+    endGame = true
+    alert('has ganado')
+    return true
+   }
+
+   result = checkDiagonalTwo(turnX)
    if (result && !endGame) {
     endGame = true
     alert('has ganado')
