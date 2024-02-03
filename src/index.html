@@ -13,25 +13,25 @@
         <div class="container">
             <div class="grow">
                 <div class="row">
-                    <div class="cell"></div>
-                    <div class="cell"></div>
-                    <div class="cell"></div>
+                    <div id="cell-0-0" class="cell"></div>
+                    <div id="cell-0-1" class="cell"></div>
+                    <div id="cell-0-2" class="cell"></div>
                 </div>
                 <div class="row">
-                    <div class="cell"></div>
-                    <div id="cell-1-1" class="cell-x"></div>
-                    <div class="cell"></div>
+                    <div id="cell-1-0" class="cell"></div>
+                    <div id="cell-1-1" class="cell"></div>
+                    <div id="cell-1-2" class="cell"></div>
                 </div>
                 <div class="row">
-                    <div class="cell"></div>
-                    <div class="cell"></div>
-                    <div class="cell"></div>
+                    <div id="cell-2-0" class="cell"></div>
+                    <div id="cell-2-1" class="cell"></div>
+                    <div id="cell-2-2" class="cell"></div>
                 </div>
             </div>
             <div class="main__information">
                 <div>
                     <div>Turno</div>
-                    <div class="turn-cell-o"></div>
+                    <div class="turn-o"></div>
                 </div>
                 <div>
                     <div>Movements</div>
@@ -64,7 +64,7 @@
         </div>
     </main>
     <div style="display:flex;justify-content:center">
-        <button id="restart">New game</button>
+        <button id="restart" onclick="resetTable()">New game</button>
     </div>
 </body>
 
