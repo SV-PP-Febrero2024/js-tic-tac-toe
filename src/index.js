@@ -33,8 +33,6 @@ window.onload = () => {
                 }
             }
         
-        
-
     }
 }
 
@@ -48,26 +46,33 @@ function resetTable(){
             turncell.className = 'turn-o'   
     }
 }
-/*
-function checkDiagonales(turnX){
-    let diagonalCompleted = false
+
+
+function checkDiagonaleOne(turnX){
+    let diagonalOneCompleted = false
      let currentTurn = ''
      if (turnX == true){
          currentTurn = 'cell-x'
      }else {
          currentTurn = 'cell-o'
      }
-
+     let diagonalOneCount = 0
      for (let i=0; i<3; i++){
-        let 
-
+        let testedDiagonaAccount = document.getElementById(`cell-${i}-${i}`)
+        if (testedDiagonaAccount.className == currentTurn){
+            diagonalOneCount++
+        }
+        if (diagonalOneCount == 3) {
+            diagonalOneCompleted = true
+            break
+        }
      }
-
-
-
-
+     if (diagonalOneCompleted == true){
+        return true
+    }
+    return false
 }
-*/
+
 
 function checkRow(turnX){
      //let cells = document.querySelectorAll("[class*='cell']")
@@ -140,6 +145,12 @@ function youWin(turnX){
    }
 
    result = checkColumns(turnX)
+   if (result && !endGame) {
+    endGame = true
+    alert('has ganado')
+    return true
+   }
+   result = checkDiagonaleOne(turnX)
    if (result && !endGame) {
     endGame = true
     alert('has ganado')
