@@ -1,3 +1,5 @@
+let endGame = false
+
 window.onload = () => {
     console.log('loaded')
 
@@ -5,46 +7,146 @@ window.onload = () => {
     let cells = document.getElementsByClassName('cell')
     let turnX = false
      for (const cell of cells) {
-        cell.onclick = (event) => {
-            if (!finish()){
-                const [, x, y] = event.target.id.split('-')
-                console.log(`click on ${x}:${y}`)
 
-                if (cell.className === 'cell' && turnX == false){
-                    cell.className = 'cell-o'
-                    turnX = true
+            cell.onclick = (event) => {
+            
+                if (!finish() && !endGame){
+                    const [, x, y] = event.target.id.split('-')
+                    //console.log(`click on ${x}:${y}`)
+    
+                    if (cell.className === 'cell' && turnX == false){
+                        cell.className = 'cell-o'
+                        youWin(turnX)
+                        turnX = true
+                        changeTurn(turnX)
+                    }
+    
+                    else if (cell.className === 'cell' && turnX == true) {
+                        cell.className = 'cell-x'
+                        youWin(turnX)
+                        turnX = false
+                        changeTurn(turnX)
+                    }
+                }         
+                else {
+                    alert("SE ACABO")
                 }
-
-                else if (cell.className === 'cell' && turnX == true) {
-                    cell.className = 'cell-x'
-                    turnX = false
-                }
-            } else {
-                alert("SE ACABO")
             }
-        }
+        
+        
+
     }
 }
 
 
 function resetTable(){
+    endGame = false
     let cells = document.querySelectorAll("[class*='cell']")
+    let turncell = document.getElementById('turn')
     for (const cell of cells) {
-        cell.className = 'cell'
+            cell.className = 'cell'
+            turncell.className = 'turn-o'   
     }
 }
+/*
+function checkDiagonales(turnX){
+    let diagonalCompleted = false
+     let currentTurn = ''
+     if (turnX == true){
+         currentTurn = 'cell-x'
+     }else {
+         currentTurn = 'cell-o'
+     }
 
-function youWin(){
-    let cells = document.querySelectorAll("[class*='cell']")
+     for (let i=0; i<3; i++){
+        let 
 
-    for (i=0; i<cells.length; i++){
+     }
 
 
+
+
+}
+*/
+
+function checkRow(turnX){
+     //let cells = document.querySelectorAll("[class*='cell']")
+     let columnCompleted = false
+     let currentTurn = ''
+     if (turnX == true){
+         currentTurn = 'cell-x'
+     }else {
+         currentTurn = 'cell-o'
+     }
+     //const [, x, y] = target.id.split('-')
+     for (let i=0; i<3; i++){
+        let columnCount = 0
+         for (let j=0; j<3; j++){
+             let testedColumn = document.getElementById(`cell-${i}-${j}`)
+         if (testedColumn.className == currentTurn){
+             columnCount++
+         }
+         }
+         if (columnCount == 3) {
+             columnCompleted = true
+             break
+         }
+     }
+     if (columnCompleted == true){
+         return true
+     }
+     
+     return false
+}
+
+function checkColumns(turnX){
+    //let cells = document.querySelectorAll("[class*='cell']")
+    let columnCompleted = false
+    let currentTurn = ''
+    if (turnX == true){
+        currentTurn = 'cell-x'
+    }else {
+        currentTurn = 'cell-o'
+    }
+    //const [, x, y] = target.id.split('-')
+    for (let i=0; i<3; i++){
+        let columnCount = 0
+
+        for (let j=0; j<3; j++){
+            let testedColumn = document.getElementById(`cell-${j}-${i}`)
+        if (testedColumn.className == currentTurn){
+            columnCount++
+        }
+        }
+        if (columnCount == 3) {
+            columnCompleted = true
+            break
+        }
     }
 
-
-
+    if (columnCompleted == true){
+        return true
+    }
+    
     return false
+}
+
+function youWin(turnX){
+   let result = checkRow(turnX)
+   if (result && !endGame) {
+    endGame = true
+    alert('has ganado')
+    return true
+   }
+
+   result = checkColumns(turnX)
+   if (result && !endGame) {
+    endGame = true
+    alert('has ganado')
+    return true
+   }
+   // checkDiagonales()
+   return false
 }
 
 function finish(){
@@ -53,4 +155,14 @@ function finish(){
         return true
     }
     return false
+}
+
+function changeTurn(turnX){
+    let turn = document.getElementById('turn')
+    if (!turnX){
+        turn.className = 'cell-o'
+    }
+    else {
+        turn.className = 'cell-x'
+    }
 }
